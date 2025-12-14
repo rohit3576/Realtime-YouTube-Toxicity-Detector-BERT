@@ -1,5 +1,5 @@
 streamlit==1.40.0
-torch==2.2.2
+torch>=2.5.0T
 transformers==4.40.2
 pytchat==0.5.5
 requests==2.31.0
