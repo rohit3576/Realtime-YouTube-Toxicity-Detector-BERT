@@ -8,7 +8,6 @@ import re
 from transformers import BertTokenizer, BertForSequenceClassification
 import pytchat
 import gdown
-
 def download_model():
     os.makedirs("models", exist_ok=True)
     model_path = "models/lyubomirt-toxicity-detector.pth"
@@ -16,11 +15,12 @@ def download_model():
     if not os.path.exists(model_path):
         with st.spinner("Downloading toxicity model (first run only)..."):
             gdown.download(
-                "https://drive.google.com/file/d/1zJ__D4hWfXSM-dIkHsQ19SgdRWBNhXnV/view?usp=sharing",
-                model_path,
+                id="1zJ__D4hWfXSM-dIkHsQ19SgdRWBNhXnV",
+                output=model_path,
                 quiet=False
             )
     return model_path
+
 
 # --- Utility Function to Extract Video ID from URL ---
 
