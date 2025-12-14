@@ -7,6 +7,20 @@ import threading
 import re 
 from transformers import BertTokenizer, BertForSequenceClassification
 import pytchat
+import gdown
+
+def download_model():
+    os.makedirs("models", exist_ok=True)
+    model_path = "models/lyubomirt-toxicity-detector.pth"
+
+    if not os.path.exists(model_path):
+        with st.spinner("Downloading toxicity model (first run only)..."):
+            gdown.download(
+                "https://drive.google.com/file/d/1zJ__D4hWfXSM-dIkHsQ19SgdRWBNhXnV/view?usp=sharing",
+                model_path,
+                quiet=False
+            )
+    return model_path
 
 # --- Utility Function to Extract Video ID from URL ---
 
@@ -46,7 +60,7 @@ class ToxicClassifier(torch.nn.Module):
 
 @st.cache_resource
 def load_model_and_tokenizer():
-    MODEL_PATH = 'lyubomirt-toxicity-detector.pth' 
+    MODEL_PATH = download_model() 
     labels = ['toxic', 'severe_toxic', 'obscene', 'threat', 'insult']
     n_classes = len(labels)
     tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
